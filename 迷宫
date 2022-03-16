@@ -1,0 +1,73 @@
+#include "stdio.h"
+#include "windows.h"
+#include "conio.h"
+#include "string.h"
+ int main()
+ {
+ 	printf("欢迎走进今天的迷宫小游戏！\n");
+ 	printf("此次游戏共有四个键位，分别为：\ns代表向下走\na代表向左走\nw代表向上走\nd代表向右走\n");
+ 	char help[9][10]=
+	 {
+	 "L#****",
+	 "***###",
+	 "##***#",
+	 "*#**#*",
+	 "*##***",
+	 "###*##",
+	 "#***#E",
+	 "*#*##*",
+	 "##****",
+     };//地图 
+     int curX,curY,i;//小球初始位置用curX、curY表示
+     curX=0,curY=0;//小球开始是在0,0位置 
+     for(i=0;i<9;i++)
+     puts(help[i]);//定义函数 
+	 while(curX!=6||curY!=5)//小球末位置curX=6,curY=7 
+	 {
+	 	int ch=getch();//赋值输入变量 
+	 	if(ch=='s')//向下走 
+		 {
+		 	if(help[curX+1][curY]!='#')//确定是否为墙体，若不是墙体则可以向上走一格 
+			 {
+			 	 help[curX][curY]='*';//走过的位置变为* 
+		         curX++;
+		         help[curX][curY]='L';
+			 }
+		
+       	}
+       	if(ch=='a')//想左走 
+		 {
+          if(help[curX][curY-1]!='#')
+		     {
+		 			 help[curX][curY]='*';
+		             curY--;
+		             help[curX][curY]='L';
+		     }
+       	 }
+	 	if(ch=='w')//向下走 
+		 {
+		  if(help[curX-1][curY]!='#')
+		    {
+		    		 help[curX][curY]='*';
+		             curX--;
+		             help[curX][curY]='L';
+		    }
+	     }
+	    if(ch=='d')//向右走 
+		 {
+          if(help[curX][curY+1]!='#')
+            {
+         			 help[curX][curY]='*';
+		             curY++;
+		             help[curX][curY]='L';
+		    }
+		 }
+       	system("cls");//清屏 
+       	for(i=0;i<9;i++)//清屏一次进入新的循环中 
+       	puts(help[i]);//输出整个地图 
+	 }
+    system("cls");//清屏 
+    printf("恭喜走出！");//恭喜走出迷宫 
+    Sleep(6000);//走完迷宫后自动退出 
+    return 0;	 	
+}
