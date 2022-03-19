@@ -1,0 +1,80 @@
+#include "stdio.h"
+#include "windows.h"
+#include "conio.h"
+#include "string.h"
+
+ 	char a[9][10]=
+	 {
+	 "*#****",
+	 "***###",
+	 "###**#",
+	 "*#**#*",
+	 "******",
+	 "###*##",
+	 "**#**E",
+	 "*#*#*#",
+	 "*#****",
+     };
+     int i,curX,curY;
+     void printPerson()
+	 {
+	 	COORD pos;
+	 	pos.X=curX;
+	 	pos.Y=curY;
+	 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),pos);//鼠标控制地点 
+	 	printf("L");
+	 }
+	 int Move(char into)
+	 {
+	 	switch(into)
+	 	{
+	 		case 'w':
+			curX--;
+	 		if (curX<0||curX>10)curX=0;
+	 		if (a[curX+1][curY]!='#');
+			curX--;
+			a[curX][curY]=='L';
+			break;
+			
+			case 'a':
+			curY--;
+			if (curY<0||curY>10)curY=0;
+	 		if (a[curX+1][curY]!='#');
+			curY--;
+			a[curX][curY]=='L';
+			break;
+			
+			case 's':
+			curX++;
+	 		if (curX<0||curX>10)curX=0;
+	 		if (a[curX+1][curY]!='#');
+			curX++;
+			a[curX][curY]=='L';
+			break;
+			
+			case 'd':
+			curY++;
+			if (curY<0||curY>10)curY=0;
+	 		if (a[curX+1][curY]!='#');
+			curY++;
+			a[curX][curY]=='L';
+			break;
+		 }
+		  system("cls");
+		  for(i=0;i<6;i++)
+		  puts(a[i]);
+	 }
+	 
+	 int main()
+{
+	 char ch=getch();
+	 Move(ch);
+	 printPerson();
+	 for(i=0;i<9;i++)
+	 puts(a[i]);
+	 if(a[curX][curY]=='E')
+	 {
+	 	printf("恭喜成功！！");
+	    return 0; 
+	 }
+}
