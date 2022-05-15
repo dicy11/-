@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h> 
+
+struct country
+{
+   	char name[100];
+   	int jp;
+   	int yp;
+   	int tp;
+   	int sum;
+};
+
+typedef struct country country;
+
+void printcountry(country c)
+{
+	printf("%s\t %d\t %d\t %d\t",c.name,c.jp,c.yp,c.tp);
+}
+
+void bubblesort(country a[],int n)
+{
+	for (int i=0;i<n-1;i++)
+	{
+		for(int j=0;j<i;j++)
+		{
+			if(a[j].jp<a[j+1].jp)
+			{
+				country is=a[j];
+				a[j]=a[j+1];
+				a[j+1]=is;
+			}
+		}
+	}
+}
+ 
+ int main()
+ {
+ 	country c[8];
+ 	FILE* fp=fopen("C:\\Users\\20595\\Desktop\\yyy.txt","r");
+ 	if(fp==NULL)
+ 	 {
+ 		printf("Error\n");
+ 		return 0;
+	 }
+	 for (int i=0;i<8;i++)
+	 {
+	 	fscanf(fp,"%s\t%d\t%d\t%d\t%d\t",c[i].name,&c[i].jp,&c[i].yp,&c[i].tp,&c[i].sum);
+	 }
+	 fclose(fp);
+	 bubblesort(c,8);
+	 
+	 FILE* outfp=fopen("E:\\new20220515....txt","w");
+	 for(int i=0;i<8;i++)
+	 {
+	 	fprintf(outfp,"%s\t%d\t%d\t%d\t%d\n",c[i].name,c[i].jp,c[i].yp,c[i].tp,c[i].sum);
+	 }
+	 fclose(outfp);
+	 
+	 return 0;
+ }
