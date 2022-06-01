@@ -1,0 +1,208 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Account {
+	int account[19];
+	int code[7];
+	char name[20];
+	char IDcard[20];
+	int tell[12];
+	float doller;
+	
+	struct Account *next;
+}; 
+
+typedef struct Account Account;
+
+int language;//1->中文；2->english;
+
+Account *head=NULL;
+Account *tail=NULL;
+
+
+void signIn()
+{
+
+}
+
+void loaddata()
+{
+	FILE *fp=fopen("C:\\Users\\20595\\Desktop\\fff.doc.doc","r");
+	if(fp!=NULL)
+	{
+		while(!feof(fp))
+		{
+			Account * NewNode=(Account *)malloc(sizeof(Account));
+			NewNode->next=NULL;
+			fscanf(fp,"%d %d %s %s %d\n",NewNode->account,NewNode->code,NewNode->name,NewNode->IDcard,NewNode->tell);
+			if(head==NULL)
+	         {
+	  	        head=NewNode;
+	  	        tail=NewNode;
+	         }
+	         else
+	         {
+	            tail->next=NewNode;
+	  	        tail=NewNode;	
+	         }
+		} 
+		fclose(fp);
+	}
+}
+
+void signUp()
+{
+	if(language==1)
+	{
+	     Account *NewNode=(Account *)malloc(sizeof(Account));
+	     NewNode->next=NULL;
+	
+	     printf("请输入账号:");
+	     scanf("%d",NewNode->account);
+	
+         printf("请输入密码：");
+	     scanf("%d",NewNode->code);
+	
+	     printf("请输入姓名：");
+	     scanf("%s",NewNode->name);
+	
+	     printf("请输入身份证件号：");
+	     scanf("%s",NewNode->IDcard);
+	
+	     printf("请输入电话号码：");
+	     scanf("%d",NewNode->tell);
+	
+	     NewNode->doller=0.0f;
+	     NewNode->next=NULL;
+	 
+	     if(head==NULL)
+	         {
+	  	        head=NewNode;
+	  	        tail=NewNode;
+	         }
+	     else
+	          {
+	             tail->next=NewNode;
+	  	         tail=NewNode;	
+	          }
+	     printf("创建成功！\n");
+     }
+       else if(language==2)
+	   {
+         Account *NewNode=(Account *)malloc(sizeof(Account));
+	     NewNode->next=NULL;
+	
+	     printf("Please put in your account:");
+	     scanf("%d",NewNode->account);
+	
+         printf("Please put in your code：");
+	     scanf("%d",NewNode->code);
+	
+	     printf("Please put in your name：");
+	     scanf("%s",NewNode->name);
+	
+	     printf("Please put in your IDcard：");
+	     scanf("%s",NewNode->IDcard);
+	
+	     printf("Please put in your tellphone：");
+	     scanf("%d",NewNode->tell);
+	
+	     NewNode->doller=0.0f;
+	     NewNode->next=NULL;
+	 
+	     if(head==NULL)
+	         {
+	  	        head=NewNode;
+	  	        tail=NewNode;
+	         }
+	     else
+	          {
+	             tail->next=NewNode;
+	  	         tail=NewNode;	
+	          }
+	     printf("Create successful！\n");
+	    }
+}
+
+
+void savedata()
+{
+	FILE *fp=fopen("C:\\Users\\20595\\Desktop\\fff.doc","w"); 
+	if(fp!=NULL)
+	 {
+		 Account * curP=head;
+		 while(curP!=NULL)
+		 {
+		     fprintf(fp,"%d %d %s %s %d\n",curP->account,curP->code,curP->name,curP->IDcard,curP->tell);
+		     curP=curP->next;	
+		 }
+	 }
+	 fclose(fp);
+} 
+
+
+void printfLinked()
+{
+	Account *curP=head;
+	while(curP!=NULL)
+	{
+		printf("%d %d %s %s %d\n",curP->account,curP->code,curP->name,curP->IDcard,curP->tell);
+		curP=curP->next;
+	}
+	
+}
+
+void Menu()
+{
+	while(1)
+	{
+		if(language==1)
+		{
+			printf("登录，请选择1\n");
+			printf("注册，请选择2\n");
+			printf("退出，请选择3\n");
+		}
+		else if(language==2)
+		{
+			printf("sign in，please chose 1\n");
+			printf("sign up，please chose 2\n");
+			printf("sign out，please chose 3\n");
+		}
+		int n;
+		scanf("%d",&n);
+		if(n==1)
+		{
+			signIn();
+		}
+		else if(n==2)
+		{
+		   signUp();	
+		} 
+		else if(n==3)
+		{
+			return;
+		}
+	}	
+}
+
+
+int main()
+{
+	printf("中文服务，按1\n");
+	printf("English Service,chose 2\n");
+
+	
+	scanf("%d",&language);
+ 
+	Menu();
+	
+	loaddata();
+	
+	signUp();
+	
+	printfLinked();
+	
+	savedata();
+	
+	return 0;
+}
