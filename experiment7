@@ -39,7 +39,9 @@ int findAccount(Account a)
 
 void updatecode()
 {
-	printf("请输入旧密码：");
+	if(language==1)
+	{
+		printf("请输入旧密码：");
 	char oldPassword[100];
 	scanf("%s",oldPassword);
     if(strcmp(oldPassword,curAccount->code)==0)
@@ -61,11 +63,39 @@ void updatecode()
      	    }	
     	}
     	return;
+	}
+	else if(language==2)
+	{
+	  printf("Please put in your oldcode：");
+	  char oldPassword[100];
+	  scanf("%s",oldPassword);
+      if(strcmp(oldPassword,curAccount->code)==0)
+    	{
+		printf("Please put in your new code：");
+		scanf("%s",curAccount->code);
+		for(int i=0;i<3;i++)
+        	{
+		  if(strcmp(oldPassword,curAccount->code)==0)
+		    {
+		    	printf("Passwords cannot be the same. Please change again! You only have three chances and will exit the program after three times \n");
+		    	scanf("%s",curAccount->code);
+	     	}
+	     else 
+	    	{
+	        	printf("The modification was successful!\n");
+				break; 		    	
+			}	   
+     	    }	
+    	}
+    	return;
+    }
 }
 
 void signIn()
 {
 	for(int i=0;i<3;i++)
+	{
+	if(language==1)
 	{
 		Account a; 
 		printf("请输入账号：");
@@ -84,7 +114,28 @@ void signIn()
 		{
 			printf("登录失败！\n");
 		}
+     }
+	else if(language==2)
+	{
+		Account a; 
+		printf("Please put in your account：");
+		scanf("%s",a.name);
+		
+		printf("Please put in your code：");
+		scanf("%s",a.code);
+		
+		if(findAccount(a))
+		{
+			printf("Sussessful Landing!\n");
+			updatecode();
+			break;
+		}
+		else
+		{
+			printf("Filed Landing!\n");
+		}
 	}
+ }
 }
 
 void loaddata()
@@ -264,7 +315,6 @@ int main()
 	
 	savedata();
 	
-	signIn();
 	
 	return 0;
 }
